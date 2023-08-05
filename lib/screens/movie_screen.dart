@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:movies/screens/watchlist_screen.dart';
 import 'package:video_player/video_player.dart';
 
 import '../models/movie_model.dart';
@@ -43,7 +44,12 @@ class MovieScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WatchlistScreen()));
+              },
               child: RichText(
                 text: TextSpan(
                   style: Theme.of(context)
@@ -96,8 +102,12 @@ class MovieScreen extends StatelessWidget {
                           .bodyLarge!
                           .copyWith(fontWeight: FontWeight.bold),
                     ),
-                    const TextSpan(
+                    TextSpan(
                       text: 'Watching',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
