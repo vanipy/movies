@@ -10,7 +10,6 @@ class MovieScreen extends StatelessWidget {
     Key? key,
     required this.movie,
   }) : super(key: key);
-
   final Movie movie;
 
   @override
