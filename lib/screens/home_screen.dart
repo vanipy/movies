@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         flexibleSpace: ClipPath(
-          clipper: _CustonClipper(),
+          clipper: _CustomClipper(),
           child: Container(
               height: 150,
               width: MediaQuery.of(context).size.width,
@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _CustonClipper extends CustomClipper<Path> {
+class _CustomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     double height = size.height;
