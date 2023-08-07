@@ -1,14 +1,67 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/screens/home_screen.dart';
 import 'package:movies/widgets/my_button.dart';
 import 'package:movies/widgets/square_tile.dart';
 import 'package:movies/widgets/userfields.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  final usernameController = TextEditingController();
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  void signUserIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+          Navigator.pop(context); // pop loading circle
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        wrongEmailMsg();
+      } else if (e.code == 'wrong-passowrd') {
+        wrongPasswordMsg();
+      }
+    }
+    
+  }
+
+  void wrongEmailMsg() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Incorrect Email'),
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMsg() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Incorrect Password'),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +92,7 @@ class LoginScreen extends StatelessWidget {
 
               const Icon(
                 Icons.movie_filter,
-                size: 100,
+                size: 50,
               ),
 
               const Text(
@@ -52,10 +105,10 @@ class LoginScreen extends StatelessWidget {
                 height: 25,
               ),
               UserFields(
-                controller: usernameController,
-                hintText: 'Username',
+                controller: emailController,
+                hintText: 'Email',
                 obscureText: false,
-              ), //username textfield
+              ), //email textfield
               UserFields(
                 controller: passwordController,
                 hintText: 'Password',
@@ -73,7 +126,8 @@ class LoginScreen extends StatelessWidget {
                     TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.all(15.0),
-                        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
                         fixedSize:
                             Size(MediaQuery.of(context).size.width * 0.425, 50),
                         shape: RoundedRectangleBorder(
@@ -83,7 +137,10 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         debugPrint('Forgot Password');
                       },
-                      child: const Text('Forgot Password?',style: TextStyle(color: Colors.black),),
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ],
                 ),
@@ -92,7 +149,9 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              const MyButton(),
+              MyButton(
+                onTap: signUserIn,
+              ),
 
               const SizedBox(
                 height: 50,

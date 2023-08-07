@@ -1,10 +1,7 @@
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movies/screens/watchlist_screen.dart';
-import 'package:video_player/video_player.dart';
 import 'package:movies/screens/movie_player_screen.dart';
-
 import '../models/movie_model.dart';
 
 class MovieScreen extends StatelessWidget {
@@ -38,8 +35,7 @@ class MovieScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(15.0),
-                primary: const Color(0xFFFF7272),
+                padding: const EdgeInsets.all(15.0), backgroundColor: const Color(0xFFFF7272),
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -75,8 +71,7 @@ class MovieScreen extends StatelessWidget {
             const SizedBox(width: 10),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(15.0),
-                primary: Colors.white,
+                padding: const EdgeInsets.all(15.0), backgroundColor: Colors.white,
                 fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),

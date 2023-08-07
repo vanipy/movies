@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/screens/log_in_screen.dart';
 
@@ -6,7 +7,9 @@ import '../widgets/movie_list_item.dart';
 import 'movie_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +36,9 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               debugPrint('log out button');
-              Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              // Navigator.pushReplacement(context,
+              //       MaterialPageRoute(builder: (context) => LoginScreen()));
+              FirebaseAuth.instance.signOut();
              },
             icon: const Icon(Icons.logout_outlined),
           ),

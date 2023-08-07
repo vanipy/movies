@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
-  const MyButton({super.key});
+  final Function()? onTap;
+
+  const MyButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(15.0),
-        primary: const Color(0xFF000B49),
-        fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: const Center(
+          child: Text(
+            "Sign In",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
         ),
       ),
-      onPressed: () {
-        debugPrint('Sign Up Button');
-      },
-      child: const Text('Sign Up '),
     );
   }
 }
