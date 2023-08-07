@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/screens/log_in_screen.dart';
+//import 'package:movies/screens/log_in_screen.dart';
 
 import '../models/movie_model.dart';
 import '../widgets/movie_list_item.dart';
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         flexibleSpace: ClipPath(
-          clipper: _CustomClipper(),
+          clipper: _CustonClipper(),
           child: Container(
             height: 180,
             width: MediaQuery.of(context).size.width,
@@ -33,9 +33,9 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               debugPrint('log out button');
-              Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()));
-            },
+            //   Navigator.pushReplacement(context,
+            //         MaterialPageRoute(builder: (context) => const LoginScreen()));
+             },
             icon: const Icon(Icons.logout_outlined),
           ),
         ],
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _CustomClipper extends CustomClipper<Path> {
+class _CustonClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     double height = size.height;
