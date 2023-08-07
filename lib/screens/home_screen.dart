@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/screens/log_in_screen.dart';
 
 import '../models/movie_model.dart';
 import '../widgets/movie_list_item.dart';
@@ -12,21 +13,32 @@ class HomeScreen extends StatelessWidget {
     List<Movie> movies = Movie.movies;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 110,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         flexibleSpace: ClipPath(
           clipper: _CustomClipper(),
           child: Container(
-              height: 150,
-              width: MediaQuery.of(context).size.width,
-              color: const Color(0xFF000B49),
-              child: Center(
-                child: Text('Explore',
-                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-              )),
+            height: 180,
+            width: MediaQuery.of(context).size.width,
+            color: const Color(0xFF000B49),
+            child: Center(
+              child: Text('Explore',
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              debugPrint('log out button');
+              Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()));
+            },
+            icon: const Icon(Icons.logout_outlined),
+          ),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
