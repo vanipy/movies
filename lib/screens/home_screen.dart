@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:movies/screens/log_in_screen.dart';
+import 'package:movies/screens/log_in_screen.dart';
 
 import '../models/movie_model.dart';
 import '../widgets/movie_list_item.dart';
@@ -33,8 +33,8 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               debugPrint('log out button');
-            //   Navigator.pushReplacement(context,
-            //         MaterialPageRoute(builder: (context) => const LoginScreen()));
+              Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
              },
             icon: const Icon(Icons.logout_outlined),
           ),

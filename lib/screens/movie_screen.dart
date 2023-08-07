@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movies/screens/watchlist_screen.dart';
 import 'package:video_player/video_player.dart';
+import 'package:movies/screens/movie_player_screen.dart';
 
 import '../models/movie_model.dart';
 
@@ -85,7 +86,7 @@ class MovieScreen extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => _MoviePlayer(
+                    builder: (context) => MoviePlayerScreen(
                       movie: movie,
                     ),
                   ),
@@ -208,52 +209,52 @@ class MovieScreen extends StatelessWidget {
   }
 }
 
-class _MoviePlayer extends StatefulWidget {
-  const _MoviePlayer({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+// class _MoviePlayer extends StatefulWidget {
+//   const _MoviePlayer({
+//     Key? key,
+//     required this.movie,
+//   }) : super(key: key);
 
-  final Movie movie;
+//   final Movie movie;
 
-  @override
-  State<_MoviePlayer> createState() => _MoviePlayerState();
-}
+//   @override
+//   State<_MoviePlayer> createState() => _MoviePlayerState();
+// }
 
-class _MoviePlayerState extends State<_MoviePlayer> {
-  late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
+// class _MoviePlayerState extends State<_MoviePlayer> {
+//   late VideoPlayerController videoPlayerController;
+//   late ChewieController chewieController;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    videoPlayerController = VideoPlayerController.asset(widget.movie.videoPath)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+//     videoPlayerController = VideoPlayerController.asset(widget.movie.videoPath)
+//       ..initialize().then((_) {
+//         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+//         setState(() {});
+//       });
 
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController,
-      aspectRatio: 16 / 9,
-    );
-  }
+//     chewieController = ChewieController(
+//       videoPlayerController: videoPlayerController,
+//       aspectRatio: 16 / 9,
+//     );
+//   }
 
-  @override
-  void dispose() {
-    videoPlayerController.dispose();
-    chewieController.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     videoPlayerController.dispose();
+//     chewieController.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SafeArea(
-        child: Chewie(controller: chewieController),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.transparent,
+//       body: SafeArea(
+//         child: Chewie(controller: chewieController),
+//       ),
+//     );
+//   }
+// }
