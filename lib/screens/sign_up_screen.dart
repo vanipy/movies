@@ -5,20 +5,22 @@ import 'package:movies/widgets/my_button.dart';
 import 'package:movies/widgets/square_tile.dart';
 import 'package:movies/widgets/userfields.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
-  const LoginScreen({super.key,required this.onTap});
+  const SignUpScreen({super.key, required this.onTap});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
-  void signUserIn() async {
+  final confirmPasswordController = TextEditingController();
+
+  void signUserUp() async {
     showDialog(
       context: context,
       builder: (context) {
@@ -27,16 +29,28 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
+    //try creating new user
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      Navigator.pop(context); // pop loading circle
+      //check if password is confirmed
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+      }
+      else{
+        //show message that passwords do not match
+        Navigator.pop(context);
+        showErrorMsg("Passwords don't match");
+        //Navigator.pop(context);
+      }
+
+      // pop loading circle
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMsg(e.code);
     }
   }
 
+  //error message to user
   void showErrorMsg(String message) {
     showDialog(
       context: context,
@@ -74,15 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
                 const Icon(
                   Icons.movie_filter,
-                  size: 100,
+                  size: 50,
                 ),
 
                 const Text(
-                  'Welcome Back!',
+                  'Lets get started!',
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
@@ -94,50 +108,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: emailController,
                   hintText: 'Email',
                   obscureText: false,
-                ), //email textfield
+                ),
+
+                const SizedBox(height: 10), //email textfield
+
                 UserFields(
                   controller: passwordController,
                   hintText: 'Password',
                   obscureText: true,
                 ), //password textfield
 
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        style: TextButton.styleFrom(
-                          padding: const EdgeInsets.all(15.0),
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 255, 255),
-                          fixedSize: Size(
-                              MediaQuery.of(context).size.width * 0.425, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                        ),
-                        onPressed: () {
-                          debugPrint('Forgot Password');
-                        },
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 10), //email textfield
+
+                UserFields(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                ), //confirm password textfield
 
                 const SizedBox(
                   height: 25,
                 ),
                 MyButton(
-                  text: 'Sign In',
-                  onTap: signUserIn,
+                  text: 'Sign Up',
+                  onTap: signUserUp,
                 ),
 
                 const SizedBox(
@@ -191,11 +185,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                 ),
                 //not a member? Sign up now
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Not a member? ',
+                      'Already have an account? ',
                       style: TextStyle(
                         color: Colors.black,
                       ),
@@ -206,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        'Sign Up Now',
+                        'Log In Now',
                         style: TextStyle(
                           color: Colors.lightBlue,
                           fontWeight: FontWeight.bold,
@@ -215,42 +209,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 )
-
-                // Center(
-                //   child: ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //       padding: const EdgeInsets.all(15.0),
-                //       primary: const Color(0xFF000B49),
-                //       fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(15.0),
-                //       ),
-                //     ),
-                //     onPressed: () {
-                //       debugPrint('Log In Button');
-
-                //       Navigator.pushReplacement(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => const HomeScreen()));
-                //     },
-                //     child: const Text('Log In'),
-                //   ),
-                // ),
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //     padding: const EdgeInsets.all(15.0),
-                //     primary: const Color(0xFF000B49),
-                //     fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(15.0),
-                //     ),
-                //   ),
-                //   onPressed: () {
-                //     debugPrint('Sign Up Button');
-                //   },
-                //   child: const Text('Sign Up '),
-                // ),
               ],
             ),
           ),
