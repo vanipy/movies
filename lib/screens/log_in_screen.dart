@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/screens/home_screen.dart';
+import 'package:movies/services/auth_service.dart';
 import 'package:movies/widgets/my_button.dart';
 import 'package:movies/widgets/square_tile.dart';
 import 'package:movies/widgets/userfields.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function()? onTap;
-  const LoginScreen({super.key,required this.onTap});
+  const LoginScreen({super.key, required this.onTap});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -172,18 +172,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 //adding google and apple sign in buttons
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //google button
-                    SquareTile(imagePath: 'assets/images/google.png'),
+                    SquareTile(
+                        onTap: () => AuthService().signInWithGoogle(),
+                        imagePath: 'assets/images/google.png'),
 
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
 
                     //apple button
-                    SquareTile(imagePath: 'assets/images/apple.png'),
+                    SquareTile(
+                      onTap: () {},
+                      imagePath: 'assets/images/apple.png'),
                   ],
                 ),
 
@@ -191,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                 ),
                 //not a member? Sign up now
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
@@ -215,42 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 )
-
-                // Center(
-                //   child: ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //       padding: const EdgeInsets.all(15.0),
-                //       primary: const Color(0xFF000B49),
-                //       fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(15.0),
-                //       ),
-                //     ),
-                //     onPressed: () {
-                //       debugPrint('Log In Button');
-
-                //       Navigator.pushReplacement(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => const HomeScreen()));
-                //     },
-                //     child: const Text('Log In'),
-                //   ),
-                // ),
-                // ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //     padding: const EdgeInsets.all(15.0),
-                //     primary: const Color(0xFF000B49),
-                //     fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(15.0),
-                //     ),
-                //   ),
-                //   onPressed: () {
-                //     debugPrint('Sign Up Button');
-                //   },
-                //   child: const Text('Sign Up '),
-                // ),
               ],
             ),
           ),

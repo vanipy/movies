@@ -5,6 +5,8 @@ import 'package:movies/widgets/my_button.dart';
 import 'package:movies/widgets/square_tile.dart';
 import 'package:movies/widgets/userfields.dart';
 
+import '../services/auth_service.dart';
+
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
   const SignUpScreen({super.key, required this.onTap});
@@ -166,21 +168,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 30,
                 ),
                 //adding google and apple sign in buttons
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //google button
-                    SquareTile(imagePath: 'assets/images/google.png'),
+                    SquareTile(
+                        onTap: () => AuthService().signInWithGoogle(),
+                        imagePath: 'assets/images/google.png'),
 
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
 
                     //apple button
-                    SquareTile(imagePath: 'assets/images/apple.png'),
+                    SquareTile(
+                      onTap: () {},
+                      imagePath: 'assets/images/apple.png'),
                   ],
                 ),
-
                 const SizedBox(
                   height: 50,
                 ),

@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.3
-  flutter_appauth: ^1.1.0
+  flutter_appauth: ^6.0.1
   flutter_secure_storage: ^4.2.0
 
 
@@ -43,7 +43,7 @@ dependencies:
   video_player: ^2.4.6
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
-  #auth0_flutter: ^1.2.1
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:
