@@ -3,42 +3,32 @@ import 'package:movies/screens/sign_up_screen.dart';
 
 import 'log_in_screen.dart';
 
-class LoginOrRegisterScreen extends StatefulWidget{
+class LoginOrRegisterScreen extends StatefulWidget {
   const LoginOrRegisterScreen({super.key});
 
   @override
-  State<LoginOrRegisterScreen> createState()=> _LoginOrRegisterScreenState();
-
+  State<LoginOrRegisterScreen> createState() => _LoginOrRegisterScreenState();
 }
 
-class _LoginOrRegisterScreenState extends State <LoginOrRegisterScreen>{
-  
+class _LoginOrRegisterScreenState extends State<LoginOrRegisterScreen> {
   bool showLoginScreen = true;
 
-  void togglePage()
-  {
+  void togglePage() {
     setState(() {
       showLoginScreen = !showLoginScreen;
     });
   }
-  
-  
-  
+
   @override
-  Widget build(BuildContext context)
-  {
-    if(showLoginScreen)
-    {
-      return LoginScreen
-      (
+  Widget build(BuildContext context) {
+    if (showLoginScreen) {
+      return LoginScreen(
         onTap: togglePage,
       );
-    }
-    else{
+    } else {
       return SignUpScreen(
         onTap: togglePage,
       );
     }
-
   }
 }

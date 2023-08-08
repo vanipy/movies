@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/screens/home_screen.dart';
 import 'package:movies/widgets/my_button.dart';
 import 'package:movies/widgets/square_tile.dart';
 import 'package:movies/widgets/userfields.dart';
@@ -37,8 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
-      }
-      else{
+      } else {
         //show message that passwords do not match
         Navigator.pop(context);
         showErrorMsg("Passwords don't match");
@@ -182,8 +180,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     //apple button
                     SquareTile(
-                      onTap: () {},
-                      imagePath: 'assets/images/apple.png'),
+                        onTap: () {}, imagePath: 'assets/images/apple.png'),
                   ],
                 ),
                 const SizedBox(

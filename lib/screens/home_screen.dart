@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/screens/log_in_screen.dart';
 
 import '../models/movie_model.dart';
 import '../widgets/movie_list_item.dart';

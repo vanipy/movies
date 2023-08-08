@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:movies/screens/review_screen.dart';
 import 'package:movies/screens/watchlist_screen.dart';
 import 'package:movies/screens/movie_player_screen.dart';
 import '../models/movie_model.dart';
@@ -24,19 +25,22 @@ class MovieScreen extends StatelessWidget {
     );
   }
 
+
   Positioned _buildActions(BuildContext context) {
     return Positioned(
       bottom: 50,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Wrap(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          runSpacing: 10,
           children: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(15.0), backgroundColor: const Color(0xFFFF7272),
-                fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
+                padding: const EdgeInsets.all(15.0),
+                backgroundColor: const Color(0xFFFF7272),
+                fixedSize: Size(MediaQuery.of(context).size.width * 0.405, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -71,8 +75,9 @@ class MovieScreen extends StatelessWidget {
             const SizedBox(width: 10),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(15.0), backgroundColor: Colors.white,
-                fixedSize: Size(MediaQuery.of(context).size.width * 0.425, 50),
+                padding: const EdgeInsets.all(15.0),
+                backgroundColor: Colors.white,
+                fixedSize: Size(MediaQuery.of(context).size.width * 0.405, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -108,6 +113,38 @@ class MovieScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(width: 100,),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(15), backgroundColor: Colors.indigoAccent,
+                fixedSize: Size(MediaQuery.of(context).size.width*0.405,50),
+                shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(15.0),),
+              ),
+              onPressed: (){
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReviewsScreen(),
+                  ),
+                );
+              },
+              child: RichText(
+                text: TextSpan(
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  children: [
+                    TextSpan(
+                      text: 'Leave a Review',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              
             ),
           ],
         ),
@@ -204,52 +241,4 @@ class MovieScreen extends StatelessWidget {
   }
 }
 
-// class _MoviePlayer extends StatefulWidget {
-//   const _MoviePlayer({
-//     Key? key,
-//     required this.movie,
-//   }) : super(key: key);
-
-//   final Movie movie;
-
-//   @override
-//   State<_MoviePlayer> createState() => _MoviePlayerState();
-// }
-
-// class _MoviePlayerState extends State<_MoviePlayer> {
-//   late VideoPlayerController videoPlayerController;
-//   late ChewieController chewieController;
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     videoPlayerController = VideoPlayerController.asset(widget.movie.videoPath)
-//       ..initialize().then((_) {
-//         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-//         setState(() {});
-//       });
-
-//     chewieController = ChewieController(
-//       videoPlayerController: videoPlayerController,
-//       aspectRatio: 16 / 9,
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     videoPlayerController.dispose();
-//     chewieController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.transparent,
-//       body: SafeArea(
-//         child: Chewie(controller: chewieController),
-//       ),
-//     );
-//   }
-// }
+ 

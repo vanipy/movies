@@ -7,7 +7,6 @@ Delete: be able to remove a movie from the watchlist
 
 import 'package:flutter/material.dart';
 
-import '../models/movie_model.dart';
 
 class WatchlistScreen extends StatefulWidget {
   const WatchlistScreen({super.key});
